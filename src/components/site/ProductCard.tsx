@@ -76,7 +76,7 @@ export function ProductCard({ product }: { product: Product }) {
                 name: product.name,
                 price: product.price,
                 qty: 1,
-                image: product.images[0],
+                image: product.images[0] ?? "",
               });
               toast.success("Adicionado ao carrinho");
             }}
