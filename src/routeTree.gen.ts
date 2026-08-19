@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AvaliacoesRouteImport } from './routes/avaliacoes'
+import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AvaliacoesRoute = AvaliacoesRouteImport.update({
   id: '/avaliacoes',
   path: '/avaliacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarrinhoRoute = CarrinhoRouteImport.update({
+  id: '/carrinho',
+  path: '/carrinho',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmpresaRoute = EmpresaRouteImport.update({
@@ -56,6 +62,7 @@ const ProdutosIdRoute = ProdutosIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/avaliacoes': typeof AvaliacoesRoute
+  '/carrinho': typeof CarrinhoRoute
   '/empresa': typeof EmpresaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/avaliacoes': typeof AvaliacoesRoute
+  '/carrinho': typeof CarrinhoRoute
   '/empresa': typeof EmpresaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/avaliacoes': typeof AvaliacoesRoute
+  '/carrinho': typeof CarrinhoRoute
   '/empresa': typeof EmpresaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/avaliacoes'
+    | '/carrinho'
     | '/empresa'
     | '/blog/$slug'
     | '/produtos/$id'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/avaliacoes'
+    | '/carrinho'
     | '/empresa'
     | '/blog/$slug'
     | '/produtos/$id'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/avaliacoes'
+    | '/carrinho'
     | '/empresa'
     | '/blog/$slug'
     | '/produtos/$id'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvaliacoesRoute: typeof AvaliacoesRoute
+  CarrinhoRoute: typeof CarrinhoRoute
   EmpresaRoute: typeof EmpresaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProdutosIdRoute: typeof ProdutosIdRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/avaliacoes'
       fullPath: '/avaliacoes'
       preLoaderRoute: typeof AvaliacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carrinho': {
+      id: '/carrinho'
+      path: '/carrinho'
+      fullPath: '/carrinho'
+      preLoaderRoute: typeof CarrinhoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/empresa': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvaliacoesRoute: AvaliacoesRoute,
+  CarrinhoRoute: CarrinhoRoute,
   EmpresaRoute: EmpresaRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProdutosIdRoute: ProdutosIdRoute,
