@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store";
 
-type Search = { q?: string; cat?: string };
+type Search = { q?: string | undefined; cat?: string | undefined };
 
 export const Route = createFileRoute("/produtos/")({
   validateSearch: (search: Record<string, unknown>): Search => ({
