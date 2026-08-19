@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
+import { Route as ProdutosIdRouteImport } from './routes/produtos.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,43 @@ const ProdutosIndexRoute = ProdutosIndexRouteImport.update({
   path: '/produtos/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProdutosIdRoute = ProdutosIdRouteImport.update({
+  id: '/produtos/$id',
+  path: '/produtos/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/produtos/$id': typeof ProdutosIdRoute
   '/produtos/': typeof ProdutosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/produtos/$id': typeof ProdutosIdRoute
   '/produtos': typeof ProdutosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/produtos/$id': typeof ProdutosIdRoute
   '/produtos/': typeof ProdutosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/empresa' | '/produtos/'
+  fullPaths: '/' | '/empresa' | '/produtos/$id' | '/produtos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/empresa' | '/produtos'
-  id: '__root__' | '/' | '/empresa' | '/produtos/'
+  to: '/' | '/empresa' | '/produtos/$id' | '/produtos'
+  id: '__root__' | '/' | '/empresa' | '/produtos/$id' | '/produtos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmpresaRoute: typeof EmpresaRoute
+  ProdutosIdRoute: typeof ProdutosIdRoute
   ProdutosIndexRoute: typeof ProdutosIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdutosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produtos/$id': {
+      id: '/produtos/$id'
+      path: '/produtos/$id'
+      fullPath: '/produtos/$id'
+      preLoaderRoute: typeof ProdutosIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmpresaRoute: EmpresaRoute,
+  ProdutosIdRoute: ProdutosIdRoute,
   ProdutosIndexRoute: ProdutosIndexRoute,
 }
 export const routeTree = rootRouteImport
