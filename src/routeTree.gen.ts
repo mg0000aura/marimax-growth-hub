@@ -15,6 +15,7 @@ import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
 import { Route as EmpresaRouteImport } from './routes/empresa'
+import { Route as SuporteRouteImport } from './routes/suporte'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
@@ -50,6 +51,11 @@ const EmpresaRoute = EmpresaRouteImport.update({
   path: '/empresa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuporteRoute = SuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/suporte': typeof SuporteRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/suporte': typeof SuporteRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog': typeof BlogIndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/suporte': typeof SuporteRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/suporte'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/suporte'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/suporte'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   ContaRoute: typeof ContaRoute
   EmpresaRoute: typeof EmpresaRoute
+  SuporteRoute: typeof SuporteRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProdutosIdRoute: typeof ProdutosIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpresaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/suporte': {
+      id: '/suporte'
+      path: '/suporte'
+      fullPath: '/suporte'
+      preLoaderRoute: typeof SuporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   ContaRoute: ContaRoute,
   EmpresaRoute: EmpresaRoute,
+  SuporteRoute: SuporteRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProdutosIdRoute: ProdutosIdRoute,
   BlogIndexRoute: BlogIndexRoute,
