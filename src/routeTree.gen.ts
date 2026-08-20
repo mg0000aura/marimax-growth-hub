@@ -16,6 +16,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as EmpresaRouteImport } from './routes/empresa'
+import { Route as PoliticaDeCompraRouteImport } from './routes/politica-de-compra'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as SuporteRouteImport } from './routes/suporte'
 import { Route as TermosRouteImport } from './routes/termos'
@@ -57,6 +58,11 @@ const CookiesRoute = CookiesRouteImport.update({
 const EmpresaRoute = EmpresaRouteImport.update({
   id: '/empresa',
   path: '/empresa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeCompraRoute = PoliticaDeCompraRouteImport.update({
+  id: '/politica-de-compra',
+  path: '/politica-de-compra',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/conta': typeof ContaRoute
   '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/conta': typeof ContaRoute
   '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/conta': typeof ContaRoute
   '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
     | '/privacidade'
     | '/suporte'
     | '/termos'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
     | '/privacidade'
     | '/suporte'
     | '/termos'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
     | '/privacidade'
     | '/suporte'
     | '/termos'
@@ -203,6 +215,7 @@ export interface RootRouteChildren {
   ContaRoute: typeof ContaRoute
   CookiesRoute: typeof CookiesRoute
   EmpresaRoute: typeof EmpresaRoute
+  PoliticaDeCompraRoute: typeof PoliticaDeCompraRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   SuporteRoute: typeof SuporteRoute
   TermosRoute: typeof TermosRoute
@@ -261,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/empresa'
       fullPath: '/empresa'
       preLoaderRoute: typeof EmpresaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-compra': {
+      id: '/politica-de-compra'
+      path: '/politica-de-compra'
+      fullPath: '/politica-de-compra'
+      preLoaderRoute: typeof PoliticaDeCompraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidade': {
@@ -323,6 +343,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContaRoute: ContaRoute,
   CookiesRoute: CookiesRoute,
   EmpresaRoute: EmpresaRoute,
+  PoliticaDeCompraRoute: PoliticaDeCompraRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   SuporteRoute: SuporteRoute,
   TermosRoute: TermosRoute,
