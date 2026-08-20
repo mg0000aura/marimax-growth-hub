@@ -15,6 +15,7 @@ import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
 import { Route as EmpresaRouteImport } from './routes/empresa'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as SuporteRouteImport } from './routes/suporte'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -50,6 +51,11 @@ const ContaRoute = ContaRouteImport.update({
 const EmpresaRoute = EmpresaRouteImport.update({
   id: '/empresa',
   path: '/empresa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuporteRoute = SuporteRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
   '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/privacidade'
     | '/suporte'
     | '/termos'
     | '/blog/$slug'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/privacidade'
     | '/suporte'
     | '/termos'
     | '/blog/$slug'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/conta'
     | '/empresa'
+    | '/privacidade'
     | '/suporte'
     | '/termos'
     | '/blog/$slug'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   ContaRoute: typeof ContaRoute
   EmpresaRoute: typeof EmpresaRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
   SuporteRoute: typeof SuporteRoute
   TermosRoute: typeof TermosRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/empresa'
       fullPath: '/empresa'
       preLoaderRoute: typeof EmpresaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/suporte': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   ContaRoute: ContaRoute,
   EmpresaRoute: EmpresaRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
   SuporteRoute: SuporteRoute,
   TermosRoute: TermosRoute,
   BlogSlugRoute: BlogSlugRoute,
