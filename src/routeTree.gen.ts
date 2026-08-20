@@ -14,6 +14,7 @@ import { Route as AvaliacoesRouteImport } from './routes/avaliacoes'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as SuporteRouteImport } from './routes/suporte'
@@ -46,6 +47,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
 const ContaRoute = ContaRouteImport.update({
   id: '/conta',
   path: '/conta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmpresaRoute = EmpresaRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
   '/privacidade': typeof PrivacidadeRoute
   '/suporte': typeof SuporteRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
     | '/privacidade'
     | '/suporte'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
     | '/privacidade'
     | '/suporte'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
     | '/privacidade'
     | '/suporte'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   CarrinhoRoute: typeof CarrinhoRoute
   CheckoutRoute: typeof CheckoutRoute
   ContaRoute: typeof ContaRoute
+  CookiesRoute: typeof CookiesRoute
   EmpresaRoute: typeof EmpresaRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   SuporteRoute: typeof SuporteRoute
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/conta'
       fullPath: '/conta'
       preLoaderRoute: typeof ContaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/empresa': {
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarrinhoRoute: CarrinhoRoute,
   CheckoutRoute: CheckoutRoute,
   ContaRoute: ContaRoute,
+  CookiesRoute: CookiesRoute,
   EmpresaRoute: EmpresaRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   SuporteRoute: SuporteRoute,
