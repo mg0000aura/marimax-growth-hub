@@ -253,7 +253,16 @@ function Produtos() {
             <Input type="number" min={0} step="0.01" value={draft.price} onChange={(e) => setDraft({ ...draft, price: Number(e.target.value) })} />
           </Field>
           <Field label="Preço antigo (opcional)">
-            <Input type="number" min={0} step="0.01" value={draft.oldPrice ?? ""} onChange={(e) => setDraft({ ...draft, oldPrice: e.target.value ? Number(e.target.value) : undefined })} />
+            <Input
+              type="number"
+              min={0}
+              step="0.01"
+              value={draft.oldPrice ?? ""}
+              onChange={(e) => {
+                const { oldPrice: _drop, ...rest } = draft;
+                setDraft(e.target.value ? { ...rest, oldPrice: Number(e.target.value) } : rest);
+              }}
+            />
           </Field>
         </div>
         <Field label="Imagens (uma URL por linha)">
