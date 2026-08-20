@@ -27,7 +27,7 @@ export const Route = createFileRoute("/suporte")({
       { property: "og:description", content: "Canais de atendimento, FAQ e assistente da MARIMAX." },
     ],
   }),
-  component: Suporte;
+  component: Suporte,
 });
 
 const FAQ = [
