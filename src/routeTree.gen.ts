@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdmRouteImport } from './routes/adm'
 import { Route as AvaliacoesRouteImport } from './routes/avaliacoes'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as EmpresaRouteImport } from './routes/empresa'
+import { Route as PoliticaDeCompraRouteImport } from './routes/politica-de-compra'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as SuporteRouteImport } from './routes/suporte'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
@@ -23,6 +29,11 @@ import { Route as ProdutosIdRouteImport } from './routes/produtos.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmRoute = AdmRouteImport.update({
+  id: '/adm',
+  path: '/adm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AvaliacoesRoute = AvaliacoesRouteImport.update({
@@ -45,9 +56,34 @@ const ContaRoute = ContaRouteImport.update({
   path: '/conta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmpresaRoute = EmpresaRouteImport.update({
   id: '/empresa',
   path: '/empresa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeCompraRoute = PoliticaDeCompraRouteImport.update({
+  id: '/politica-de-compra',
+  path: '/politica-de-compra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuporteRoute = SuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -73,11 +109,17 @@ const ProdutosIdRoute = ProdutosIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/adm': typeof AdmRoute
   '/avaliacoes': typeof AvaliacoesRoute
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -85,11 +127,17 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/adm': typeof AdmRoute
   '/avaliacoes': typeof AvaliacoesRoute
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog': typeof BlogIndexRoute
@@ -98,11 +146,17 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/adm': typeof AdmRoute
   '/avaliacoes': typeof AvaliacoesRoute
   '/carrinho': typeof CarrinhoRoute
   '/checkout': typeof CheckoutRoute
   '/conta': typeof ContaRoute
+  '/cookies': typeof CookiesRoute
   '/empresa': typeof EmpresaRoute
+  '/politica-de-compra': typeof PoliticaDeCompraRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -112,11 +166,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/adm'
     | '/avaliacoes'
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
+    | '/privacidade'
+    | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -124,11 +184,17 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/adm'
     | '/avaliacoes'
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
+    | '/privacidade'
+    | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog'
@@ -136,11 +202,17 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/adm'
     | '/avaliacoes'
     | '/carrinho'
     | '/checkout'
     | '/conta'
+    | '/cookies'
     | '/empresa'
+    | '/politica-de-compra'
+    | '/privacidade'
+    | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -149,11 +221,17 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdmRoute: typeof AdmRoute
   AvaliacoesRoute: typeof AvaliacoesRoute
   CarrinhoRoute: typeof CarrinhoRoute
   CheckoutRoute: typeof CheckoutRoute
   ContaRoute: typeof ContaRoute
+  CookiesRoute: typeof CookiesRoute
   EmpresaRoute: typeof EmpresaRoute
+  PoliticaDeCompraRoute: typeof PoliticaDeCompraRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
+  SuporteRoute: typeof SuporteRoute
+  TermosRoute: typeof TermosRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProdutosIdRoute: typeof ProdutosIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -167,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adm': {
+      id: '/adm'
+      path: '/adm'
+      fullPath: '/adm'
+      preLoaderRoute: typeof AdmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/avaliacoes': {
@@ -197,11 +282,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/empresa': {
       id: '/empresa'
       path: '/empresa'
       fullPath: '/empresa'
       preLoaderRoute: typeof EmpresaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-compra': {
+      id: '/politica-de-compra'
+      path: '/politica-de-compra'
+      fullPath: '/politica-de-compra'
+      preLoaderRoute: typeof PoliticaDeCompraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suporte': {
+      id: '/suporte'
+      path: '/suporte'
+      fullPath: '/suporte'
+      preLoaderRoute: typeof SuporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -237,11 +357,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdmRoute: AdmRoute,
   AvaliacoesRoute: AvaliacoesRoute,
   CarrinhoRoute: CarrinhoRoute,
   CheckoutRoute: CheckoutRoute,
   ContaRoute: ContaRoute,
+  CookiesRoute: CookiesRoute,
   EmpresaRoute: EmpresaRoute,
+  PoliticaDeCompraRoute: PoliticaDeCompraRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
+  SuporteRoute: SuporteRoute,
+  TermosRoute: TermosRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProdutosIdRoute: ProdutosIdRoute,
   BlogIndexRoute: BlogIndexRoute,
