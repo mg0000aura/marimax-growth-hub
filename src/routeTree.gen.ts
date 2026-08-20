@@ -16,6 +16,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContaRouteImport } from './routes/conta'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as SuporteRouteImport } from './routes/suporte'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
@@ -56,6 +57,11 @@ const SuporteRoute = SuporteRouteImport.update({
   path: '/suporte',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
   '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
   '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog': typeof BlogIndexRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/conta': typeof ContaRoute
   '/empresa': typeof EmpresaRoute
   '/suporte': typeof SuporteRoute
+  '/termos': typeof TermosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/produtos/$id': typeof ProdutosIdRoute
   '/blog/': typeof BlogIndexRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/empresa'
     | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/empresa'
     | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/conta'
     | '/empresa'
     | '/suporte'
+    | '/termos'
     | '/blog/$slug'
     | '/produtos/$id'
     | '/blog/'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   ContaRoute: typeof ContaRoute
   EmpresaRoute: typeof EmpresaRoute
   SuporteRoute: typeof SuporteRoute
+  TermosRoute: typeof TermosRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProdutosIdRoute: typeof ProdutosIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuporteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContaRoute: ContaRoute,
   EmpresaRoute: EmpresaRoute,
   SuporteRoute: SuporteRoute,
+  TermosRoute: TermosRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProdutosIdRoute: ProdutosIdRoute,
   BlogIndexRoute: BlogIndexRoute,
