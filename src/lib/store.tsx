@@ -62,6 +62,17 @@ async function loadCollection<T extends { id: string }>(name: string): Promise<T
   }
 }
 
+async function loadSettingsRemote(): Promise<Partial<Settings> | null> {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const snap = await getDoc(doc(db, "settings", "site"));
+    return snap.exists() ? (snap.data() as Partial<Settings>) : null;
+  } catch {
+    return null;
+  }
+}
+
 async function saveDocRemote(name: string, id: string, value: unknown) {
   const db = getDb();
   if (!db) return;
