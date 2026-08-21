@@ -311,11 +311,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         });
       },
       log: (who, what) => {
+        const entry: ActivityLog = { id: uid(), who, what, createdAt: Date.now() };
         setActivity((prev) => {
-          const next = [{ id: uid(), who, what, createdAt: Date.now() }, ...prev].slice(0, 200);
+          const next = [entry, ...prev].slice(0, 300);
           persist("activity", next);
           return next;
         });
+        void saveDocRemote("activity", entry.id, entry);
       },
       addToCart: (item) => {
         setCart((prev) => {
