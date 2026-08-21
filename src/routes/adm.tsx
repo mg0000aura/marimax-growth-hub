@@ -26,16 +26,25 @@ export const Route = createFileRoute("/adm")({
 const ADM_KEY = "marimax:admUnlocked";
 
 function Adm() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const store = useStore();
   const [unlocked, setUnlocked] = useState(false);
   const [code, setCode] = useState("");
 
+  // O desbloqueio fica salvo no navegador e só vale enquanto o código não mudar.
   useEffect(() => {
-    if (typeof window !== "undefined" && window.sessionStorage.getItem(ADM_KEY) === "1") {
-      setUnlocked(true);
-    }
-  }, []);
+    if (typeof window === "undefined") return;
+    const saved = window.localStorage.getItem(ADM_KEY);
+    setUnlocked(Boolean(saved) && saved === store.settings.adminCode);
+  }, [store.settings.adminCode]);
+
+  if (loading) {
+    return (
+      <AdmShell>
+        <p className="py-24 text-center text-sm text-muted-foreground">Verificando acesso…</p>
+      </AdmShell>
+    );
+  }
 
   if (!user) {
     return (
