@@ -73,9 +73,9 @@ function Adm() {
               toast.error("Código inválido.");
               return;
             }
-            window.sessionStorage.setItem(ADM_KEY, "1");
+            window.localStorage.setItem(ADM_KEY, store.settings.adminCode);
             setUnlocked(true);
-            store.log(user.email, "Acessou o painel administrativo");
+            store.log(user.email, "Login no painel administrativo");
           }}
         >
           <h1 className="text-2xl font-medium">Verificação em duas etapas</h1>
