@@ -249,8 +249,24 @@ function Produtos() {
             toast.error("Informe o nome do produto.");
             return;
           }
-          saveProduct({ ...draft, name: draft.name.trim().slice(0, 120) });
-          log(user?.email ?? "adm", `Salvou o produto ${draft.name}`);
+          const name = draft.name.trim().slice(0, 120);
+          const before = products.find((p) => p.id === draft.id);
+          saveProduct({ ...draft, name });
+          const who = user?.email ?? "adm";
+          if (!before) {
+            log(who, `Criou o produto "${name}" por ${brl(draft.price)}`);
+          } else {
+            if (before.price !== draft.price) {
+              log(who, `Alterou o preço de "${name}": ${brl(before.price)} → ${brl(draft.price)}`);
+            }
+            if ((before.oldPrice ?? 0) !== (draft.oldPrice ?? 0)) {
+              log(who, `Alterou o preço antigo de "${name}": ${brl(before.oldPrice ?? 0)} → ${brl(draft.oldPrice ?? 0)}`);
+            }
+            if (before.active !== draft.active) {
+              log(who, `${draft.active ? "Publicou" : "Ocultou"} o produto "${name}"`);
+            }
+            log(who, `Editou o produto "${name}"`);
+          }
           toast.success("Produto salvo.");
           setDraft(null);
         }}
