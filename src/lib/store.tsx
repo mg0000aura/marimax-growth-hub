@@ -11,6 +11,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   setDoc,
 } from "firebase/firestore";
@@ -56,6 +57,17 @@ async function loadCollection<T extends { id: string }>(name: string): Promise<T
   try {
     const snap = await getDocs(collection(db, name));
     return snap.docs.map((d) => ({ ...(d.data() as T), id: d.id }));
+  } catch {
+    return null;
+  }
+}
+
+async function loadSettingsRemote(): Promise<Partial<Settings> | null> {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const snap = await getDoc(doc(db, "settings", "site"));
+    return snap.exists() ? (snap.data() as Partial<Settings>) : null;
   } catch {
     return null;
   }
@@ -162,7 +174,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setFavorites(readLocal<string[]>("favorites", []));
 
       if (firebaseEnabled) {
-        const [p, r, b, o, c, bn, pr] = await Promise.all([
+        const [p, r, b, o, c, bn, pr, act, st] = await Promise.all([
           loadCollection<Product>("products"),
           loadCollection<Review>("reviews"),
           loadCollection<Post>("posts"),
@@ -170,15 +182,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           loadCollection<Coupon & { id: string }>("coupons"),
           loadCollection<Banner>("banners"),
           loadCollection<Profile>("profiles"),
+          loadCollection<ActivityLog>("activity"),
+          loadSettingsRemote(),
         ]);
         if (!alive) return;
-        if (p) setProducts(p);
+        if (p) {
+          setProducts(p);
+          writeLocal("products", p);
+        }
         if (r) setReviews(r);
         if (b) setPosts(b);
         if (o) setOrders(o);
         if (c) setCoupons(c.map((x) => ({ code: x.code ?? x.id, percent: x.percent, active: x.active })));
         if (bn) setBanners(bn);
         if (pr) setProfiles(pr);
+        if (act) setActivity([...act].sort((a, b2) => b2.createdAt - a.createdAt).slice(0, 300));
+        if (st) setSettings((prev) => ({ ...prev, ...st, visits: prev.visits, views: prev.views }));
       }
       if (alive) setReady(true);
     }
@@ -292,11 +311,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         });
       },
       log: (who, what) => {
+        const entry: ActivityLog = { id: uid(), who, what, createdAt: Date.now() };
         setActivity((prev) => {
-          const next = [{ id: uid(), who, what, createdAt: Date.now() }, ...prev].slice(0, 200);
+          const next = [entry, ...prev].slice(0, 300);
           persist("activity", next);
           return next;
         });
+        void saveDocRemote("activity", entry.id, entry);
       },
       addToCart: (item) => {
         setCart((prev) => {

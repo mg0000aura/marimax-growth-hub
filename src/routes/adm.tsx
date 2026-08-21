@@ -26,16 +26,25 @@ export const Route = createFileRoute("/adm")({
 const ADM_KEY = "marimax:admUnlocked";
 
 function Adm() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const store = useStore();
   const [unlocked, setUnlocked] = useState(false);
   const [code, setCode] = useState("");
 
+  // O desbloqueio fica salvo no navegador e só vale enquanto o código não mudar.
   useEffect(() => {
-    if (typeof window !== "undefined" && window.sessionStorage.getItem(ADM_KEY) === "1") {
-      setUnlocked(true);
-    }
-  }, []);
+    if (typeof window === "undefined") return;
+    const saved = window.localStorage.getItem(ADM_KEY);
+    setUnlocked(Boolean(saved) && saved === store.settings.adminCode);
+  }, [store.settings.adminCode]);
+
+  if (loading) {
+    return (
+      <AdmShell>
+        <p className="py-24 text-center text-sm text-muted-foreground">Verificando acesso…</p>
+      </AdmShell>
+    );
+  }
 
   if (!user) {
     return (
@@ -64,14 +73,14 @@ function Adm() {
               toast.error("Código inválido.");
               return;
             }
-            window.sessionStorage.setItem(ADM_KEY, "1");
+            window.localStorage.setItem(ADM_KEY, store.settings.adminCode);
             setUnlocked(true);
-            store.log(user.email, "Acessou o painel administrativo");
+            store.log(user.email, "Login no painel administrativo");
           }}
         >
           <h1 className="text-2xl font-medium">Verificação em duas etapas</h1>
           <p className="text-sm text-muted-foreground">
-            Informe o código administrativo para liberar o painel nesta sessão.
+            Informe o código administrativo. O desbloqueio fica salvo neste navegador.
           </p>
           <div>
             <Label htmlFor="code">Código</Label>
@@ -98,8 +107,9 @@ function Adm() {
             size="sm"
             variant="ghost"
             onClick={() => {
-              window.sessionStorage.removeItem(ADM_KEY);
+              window.localStorage.removeItem(ADM_KEY);
               setUnlocked(false);
+              store.log(user.email, "Bloqueou o painel administrativo");
             }}
           >
             Bloquear painel
@@ -239,8 +249,24 @@ function Produtos() {
             toast.error("Informe o nome do produto.");
             return;
           }
-          saveProduct({ ...draft, name: draft.name.trim().slice(0, 120) });
-          log(user?.email ?? "adm", `Salvou o produto ${draft.name}`);
+          const name = draft.name.trim().slice(0, 120);
+          const before = products.find((p) => p.id === draft.id);
+          saveProduct({ ...draft, name });
+          const who = user?.email ?? "adm";
+          if (!before) {
+            log(who, `Criou o produto "${name}" por ${brl(draft.price)}`);
+          } else {
+            if (before.price !== draft.price) {
+              log(who, `Alterou o preço de "${name}": ${brl(before.price)} → ${brl(draft.price)}`);
+            }
+            if ((before.oldPrice ?? 0) !== (draft.oldPrice ?? 0)) {
+              log(who, `Alterou o preço antigo de "${name}": ${brl(before.oldPrice ?? 0)} → ${brl(draft.oldPrice ?? 0)}`);
+            }
+            if (before.active !== draft.active) {
+              log(who, `${draft.active ? "Publicou" : "Ocultou"} o produto "${name}"`);
+            }
+            log(who, `Editou o produto "${name}"`);
+          }
           toast.success("Produto salvo.");
           setDraft(null);
         }}
