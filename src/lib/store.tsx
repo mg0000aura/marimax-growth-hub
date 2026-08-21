@@ -163,7 +163,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setFavorites(readLocal<string[]>("favorites", []));
 
       if (firebaseEnabled) {
-        const [p, r, b, o, c, bn, pr] = await Promise.all([
+        const [p, r, b, o, c, bn, pr, act, st] = await Promise.all([
           loadCollection<Product>("products"),
           loadCollection<Review>("reviews"),
           loadCollection<Post>("posts"),
@@ -171,15 +171,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           loadCollection<Coupon & { id: string }>("coupons"),
           loadCollection<Banner>("banners"),
           loadCollection<Profile>("profiles"),
+          loadCollection<ActivityLog>("activity"),
+          loadSettingsRemote(),
         ]);
         if (!alive) return;
-        if (p) setProducts(p);
+        if (p) {
+          setProducts(p);
+          writeLocal("products", p);
+        }
         if (r) setReviews(r);
         if (b) setPosts(b);
         if (o) setOrders(o);
         if (c) setCoupons(c.map((x) => ({ code: x.code ?? x.id, percent: x.percent, active: x.active })));
         if (bn) setBanners(bn);
         if (pr) setProfiles(pr);
+        if (act) setActivity([...act].sort((a, b2) => b2.createdAt - a.createdAt).slice(0, 300));
+        if (st) setSettings((prev) => ({ ...prev, ...st, visits: prev.visits, views: prev.views }));
       }
       if (alive) setReady(true);
     }
