@@ -107,8 +107,9 @@ function Adm() {
             size="sm"
             variant="ghost"
             onClick={() => {
-              window.sessionStorage.removeItem(ADM_KEY);
+              window.localStorage.removeItem(ADM_KEY);
               setUnlocked(false);
+              store.log(user.email, "Bloqueou o painel administrativo");
             }}
           >
             Bloquear painel
