@@ -13,14 +13,14 @@ import { getFirestore, type Firestore } from "firebase/firestore";
  * a proteção real vem das regras de segurança do Firestore/Auth.
  */
 export const firebaseConfig = {
-  apiKey: import.meta.env["VITE_FIREBASE_API_KEY"] ?? "",
-  authDomain: "mg-ia-a7ca6.firebaseapp.com",
-  databaseURL: "https://mg-ia-a7ca6-default-rtdb.firebaseio.com",
-  projectId: "mg-ia-a7ca6",
-  storageBucket: "mg-ia-a7ca6.firebasestorage.app",
-  messagingSenderId: "202376014292",
-  appId: "1:202376014292:web:be7ee04af906ce44b94e41",
-  measurementId: "G-W643BFZ3KG",
+  apiKey: "AIzaSyAov8lQc9GKeV-SokT5gjv-aLCew2C6M-A",
+  authDomain: "mg00-ed424.firebaseapp.com",
+  databaseURL: "https://mg00-ed424-default-rtdb.firebaseio.com",
+  projectId: "mg00-ed424",
+  storageBucket: "mg00-ed424.firebasestorage.app",
+  messagingSenderId: "877652383572",
+  appId: "1:877652383572:web:96cd6ad86344741ad31ac1",
+  measurementId: "G-6FV3VCC1D3",
 };
 
 export const firebaseEnabled = Boolean(firebaseConfig.apiKey);
