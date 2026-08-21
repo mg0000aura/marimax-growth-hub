@@ -80,7 +80,7 @@ function Adm() {
         >
           <h1 className="text-2xl font-medium">Verificação em duas etapas</h1>
           <p className="text-sm text-muted-foreground">
-            Informe o código administrativo para liberar o painel nesta sessão.
+            Informe o código administrativo. O desbloqueio fica salvo neste navegador.
           </p>
           <div>
             <Label htmlFor="code">Código</Label>
